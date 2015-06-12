@@ -37,17 +37,17 @@ function restartBuild(travis, buildId) {
 }
 
 module.exports = function(grunt) {
-	grunt.registerTask('travis-restart', function() {
-		grunt.config.requires('github.token');
-		grunt.config.requires('github.org');
-		grunt.config.requires('github.repo');
-
+	grunt.registerTask('travis-restart', function(target) {
 		var done = this.async();
 
-		getTravis(grunt.config('github.token')).then(function(travis) {
-			return getLatestBuild(travis, grunt.config('github.org'), grunt.config('github.repo')).then(function(lastBuild) {
+		var token = grunt.config([this.name, target, 'github', 'token']);
+		var org = grunt.config([this.name, target, 'github', 'org']);
+		var repo = grunt.config([this.name, target, 'github', 'repo']);
+
+		getTravis(token).then(function(travis) {
+			return getLatestBuild(travis, org, repo).then(function(lastBuild) {
 				return restartBuild(travis, lastBuild.id);
-			}).nodeify(done);
-		});
+			});
+		}).nodeify(done);
 	});
 };
