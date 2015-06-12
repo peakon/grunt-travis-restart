@@ -40,7 +40,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('travis-restart', function(target) {
 		var done = this.async();
 
-		var token = grunt.config([this.name, target, 'github', 'token']);
+		var token = grunt.option('token') || grunt.config([this.name, target, 'github', 'token']);
 		var org = grunt.config([this.name, target, 'github', 'org']);
 		var repo = grunt.config([this.name, target, 'github', 'repo']);
 
