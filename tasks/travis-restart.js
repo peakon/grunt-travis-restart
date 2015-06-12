@@ -37,7 +37,7 @@ function restartBuild(travis, buildId) {
 }
 
 module.exports = function(grunt) {
-	grunt.registerTask('web-test', function() {
+	grunt.registerTask('travis-restart', function() {
 		grunt.config.requires('github.token');
 		grunt.config.requires('github.org');
 		grunt.config.requires('github.repo');
